@@ -1,0 +1,1 @@
+This template creates a new Azure logical SQL server
