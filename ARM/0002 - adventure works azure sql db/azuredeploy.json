@@ -1,0 +1,111 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "variables": {
+      "dbApiVersion": "2014-04-01-preview",
+      "resourceGroupLocation": "[resourceGroup().location]",
+      "dbServerNameTidy": "[concat(parameters('dbServerName'),uniqueString(subscription().subscriptionId))]",
+      "masterDbNameTidy": "[toLower(trim(parameters('masterDbName')))]"
+    },
+    "parameters": {
+      "dbServerName": {
+        "type": "string"
+      },
+      "dbLogin": {
+        "type": "string"
+      },
+      "dbPassword": {
+        "type": "string"
+      },
+      "dbServerVersion": {
+        "type": "string",
+        "defaultValue": "12.0"
+      },
+      "dbCollation": {
+        "type": "string",
+        "defaultValue": "SQL_Latin1_General_CP1_CI_AS"
+      },
+      "dbEdition": {
+        "type": "string",
+        "defaultValue": "Standard"
+      },
+      "dbMaxSize": {
+        "type": "string",
+        "defaultValue": "10737418240"
+      },
+      "dbServiceObjectiveLevel": {
+        "type": "string",
+        "defaultValue": "455330E1-00CD-488B-B5FA-177C226F28B7"
+      },
+      "bacpacStorageKey": {
+        "type": "string"
+      },
+      "masterDbName": {
+        "type": "string"
+      },
+      "masterBacpacUrl": {
+        "type": "string"
+      }
+    },
+    "resources": [
+      {
+        "type": "Microsoft.Sql/servers",
+        "apiVersion": "[variables('dbApiVersion')]",
+        "properties": {
+          "administratorLogin": "[parameters('dbLogin')]",
+          "administratorLoginPassword": "[parameters('dbPassword')]",
+          "version": "[parameters('dbServerVersion')]"
+        },
+        "name": "[variables('dbServerNameTidy')]",
+        "location": "[variables('resourceGroupLocation')]",
+        "resources": [
+          {
+            "type": "firewallrules",
+            "apiVersion": "[variables('dbApiVersion')]",
+            "properties": {
+              "endIpAddress": "0.0.0.0",
+              "startIpAddress": "0.0.0.0"
+            },
+            "name": "AllowAllWindowsAzureIps",
+            "dependsOn": [
+              "[resourceId('Microsoft.Sql/servers', variables('dbServerNameTidy'))]"
+            ]
+          },
+          {
+            "type": "databases",
+            "apiVersion": "[variables('dbApiVersion')]",
+            "properties": {
+              "edition": "[parameters('dbEdition')]",
+              "collation": "[parameters('dbCollation')]",
+              "maxSizeBytes": "[parameters('dbMaxSize')]",
+              "requestedServiceObjectiveId": "[parameters('dbServiceObjectiveLevel')]"
+            },
+
+            "name": "[variables('masterDbNameTidy')]",
+            "location": "[variables('resourceGroupLocation')]",
+            "dependsOn": [
+              "[resourceId('Microsoft.Sql/servers', variables('dbServerNameTidy'))]"
+            ],
+            "resources": [
+              {
+                "type": "extensions",
+                "apiVersion": "[variables('dbApiVersion')]",
+                "properties": {
+                  "operationMode": "Import",
+                  "storageKey": "[parameters('bacpacStorageKey')]",
+                  "storageKeyType": "Primary",
+                  "administratorLogin": "[parameters('dbLogin')]",
+                  "administratorLoginPassword": "[parameters('dbPassword')]",
+                  "storageUri": "[parameters('masterBacpacUrl')]"
+                },
+                "name": "Import",
+                "dependsOn": [
+                  "[resourceId('Microsoft.Sql/servers/databases', variables('dbServerNameTidy'), variables('masterDbNameTidy'))]"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }

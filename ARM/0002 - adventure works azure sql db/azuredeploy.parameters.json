@@ -1,0 +1,24 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "dbServerName": {
+            "value": "adventureworks"
+        },
+        "dbLogin": {
+            "value": "dba"
+        },
+        "dbPassword": {
+            "value": null
+        },
+        "bacpacStorageKey": {
+            "value": "EkGuWEjzuo3mUvi8xICsPVNZ+9kCPmIZ9Puq/Vy0VKDXKZjL2XxkPKij6Uemr7U9afv7QRtqyYNgDY3KDPKh4A=="
+        },
+        "masterDbName": {
+            "value": "adventureworks-mst"
+        },
+        "masterBacpacUrl": {
+            "value": "https://scbnorlabstorage.blob.core.windows.net/databases/adventureworks_db-2017-10-9-11-17.bacpac"
+        }
+    }
+}
