@@ -5,10 +5,11 @@
        
     
         "location": {
-            "value": "westeurope"
+            "value": "westeurope",
+            
         },
         "administratorLogin": {
-            "value": "dba"
+            "value": "dba",
         },
         "administratorLoginPassword": {
             "value": null        }
