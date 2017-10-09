@@ -1,0 +1,7 @@
+{
+    "itemDisplayName": "Azure SQL from bacpac file",
+    "description": "New Azure SQL logical server mounted with an db bacpac file",
+    "summary": "New azure database instance, configured from database backup file (bacpac)",
+    "githubUsername": "jan.petersen@santanderconsumer.dk",
+    "dateUpdated": "2017-10-09"
+  }
