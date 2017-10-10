@@ -1,0 +1,7 @@
+{
+    "itemDisplayName": "Service Fabric - single node",
+    "description": "create a new Service Fabric with 1 node",
+    "summary": "1 x win 2016 with  container. Standard_D2_v2",
+    "githubUsername": "jan.petersen@santanderconsumer.dk",
+    "dateUpdated": "2017-10-10"
+  }
