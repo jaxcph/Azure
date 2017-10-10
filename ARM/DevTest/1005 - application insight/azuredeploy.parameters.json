@@ -8,12 +8,6 @@
         "name": {
             "value": "laps-application-insight"
         },
-        "hockeyAppToken": {
-            "value": ""
-        },
-        "hockeyAppId": {
-            "value": ""
-        },
         "regionId": {
             "value": "westeurope"
         },

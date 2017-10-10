@@ -9,19 +9,15 @@
             "type": "string",
             "allowedValues":["other","web","java","Node.JS","MobileCenter"]
         },
-        "hockeyAppToken": {
-            "type": "string"
-        },
-        "hockeyAppId": {
-            "type": "string"
-        },
         "regionId": {
-            "type": "string"
+            "type": "string",
+            "allowedValues":["westeurope","northeurope"]
         },
         "requestSource": {
-            "type": "string"
+            "type": "string",
+            "defaultValue":"IbizaAIExtension"
         }
-     
+  
     },
     "variables":{
         "nameTidy":"[concat(parameters('name'),'-',uniqueString(Subscription().subscriptionId))]"
@@ -35,8 +31,8 @@
             "properties": {
                 "ApplicationId": "[variables('nameTidy')]",
                 "Application_Type": "[parameters('type')]",
-                "HockeyAppToken": "[parameters('hockeyAppToken')]",
-                "HockeyAppId": "[parameters('hockeyAppId')]",
+                "HockeyAppToken": "",
+                "HockeyAppId": "",
                 "Flow_Type": "Redfield",
                 "Request_Source": "[parameters('requestSource')]"
             }
