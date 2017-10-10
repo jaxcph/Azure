@@ -1,0 +1,7 @@
+{
+    "itemDisplayName": "Application Insight",
+    "description": "create a new Application Insight resource",
+    "summary": "select which type to create other,web,java,Node.JS,MobileCenter",
+    "githubUsername": "jan.petersen@santanderconsumer.dk",
+    "dateUpdated": "2017-10-10"
+  }
